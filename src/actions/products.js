@@ -33,7 +33,9 @@ const receiveProducts = (json) => ({
 
 export const fetchProducts = () => dispatch => {
   dispatch(requestProducts());
-  const json = productApi.getProducts();
+  
+  const json =productApi.getProducts();
+  console.log(json);
   dispatch(receiveProducts(json));
 };
 

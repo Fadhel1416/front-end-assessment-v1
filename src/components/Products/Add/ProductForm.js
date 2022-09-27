@@ -5,7 +5,9 @@ import {getMultiSelected, repeat} from '../../../utils';
 import {isCategoriesValid, isDateValid, isNameValid,isRatingValid} from '../Update/validators';
 import $ from 'jquery';
 import axios from 'axios';
-const {parse, stringify} = require('flatted/cjs');
+import FlashMessage from 'react-flash-message'
+import { useHistory } from "react-router-dom";
+
 
 const ProductForm = (props) => {
    // const {product = {}} = props;
@@ -17,12 +19,15 @@ const ProductForm = (props) => {
     const [receiptDate, setReceiptDate] = useState('');
     const [expirationDate, setExpirationDate] = useState('');
     const [featured, setFeatured] = useState(false);
+    const[falshm,setFlashm]=useState(null);
+    const history = useHistory();
+
     const style = {
         color: 'red',
         display: 'none'
       };
      
-      const onSubmit = (e) => {
+      const onSubmit = async(e) => {
         e.preventDefault();
         props.onSave({
             name,
@@ -36,22 +41,27 @@ const ProductForm = (props) => {
         });
        // const product={name:e.target.name,brand:e.target.brand,rating:e.target.rating,categories:e.target.categories,itemsInStock:e.target.itemsInStock,expirationDate:e.target.expirationDate,featured:e.target.featured};
         axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-        const product={};
-        product.name=e.target.name;
-        product.brand=e.target.brand;
-        product.rating=e.target.rating;
-        product.categories=e.target.categories;
-        product.itemsInStock=e.target.itemsInStock;
-        product.expirationDate=e.target.expirationDate;
-        product.receiptDate=e.target.receiptDate;
-        product.featured=e.target.featured;
-        stringify(product);
+      
+        const options={
+            name:name,
+            brand:brand,
+            rating:rating,
+            categories:categories,
+            itemsInStock:itemsInStock,
+            expirationDate:expirationDate,
+            receiptDate:receiptDate,
+            featured:featured
+        }
 
-
-        axios.post(`http://127.0.0.1:5000/api//product/add`,JSON.stringify({name:"fadhel",age:20}))
+       await axios.post('http://127.0.0.1:5000/api//product/add',options)
         .then(res => {
           console.log(res);
           console.log(res.data);
+          setFlashm(true);
+        setTimeout(() => {
+            history.push("/");
+
+        }, 3000);
         })
     }
     const handlechange=(e)=>{
@@ -66,7 +76,12 @@ const ProductForm = (props) => {
     }
 
     return (
+       
         <Form onSubmit={onSubmit}>
+              {
+            falshm
+            ?<FlashMessage duration={5000}><span className='alert alert-success' style={{marginLeft: '200px',width:'500px'}}>Your product has been added</span></FlashMessage>:null
+          }
             <FormGroup>
                 <Label for='name'>Name</Label>
                 <Input
@@ -162,8 +177,9 @@ const ProductForm = (props) => {
 
             </FormGroup>
             <Button>Submit</Button>
+          
         </Form>
-    );
+    ); 
 }
 
 ProductForm.propTypes = {

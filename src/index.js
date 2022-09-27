@@ -13,11 +13,12 @@ import {fetchProducts} from './actions/products';
 import {createHashHistory} from 'history';
 import {Router} from 'react-router-dom';
 import {categoryApi} from './gateways/CategoryApi';
+import promiseMiddleware from "redux-promise";
 
 const history = createHashHistory();
 const deps = {history, categoryApi};
 
-const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(deps))));
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(promiseMiddleware,thunk.withExtraArgument(deps))));
 store.dispatch(fetchCategories());
 store.dispatch(fetchProducts());
 

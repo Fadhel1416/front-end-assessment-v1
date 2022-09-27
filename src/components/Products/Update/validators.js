@@ -23,8 +23,8 @@ export const isDateValid = (value) => {
     const formatDate = Moment().format('YYYY-MM-DD');
     const date2= new Date(value);
     const date1 = new Date(formatDate);
-	console.log(formatDate);
-	console.log(value);
-    console.log(getDifferenceInDays(date1,date2)>=30);
+	// console.log(formatDate);
+	// console.log(value);
+    //console.log(getDifferenceInDays(date1,date2)>=30);
 	return getDifferenceInDays(date1,date2)>=30;
 }
