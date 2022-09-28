@@ -5,6 +5,7 @@ import ProductsContainer from './components/Products/ProductsContainer'
 import NotFound from './components/NotFound/NotFound'
 import UpdateFormContainer from './components/Products/Update/UpdateFormContainer';
 import AddFormContainer from './components/Products/Add/AddFormContainer';
+import ProductUpdate from './components/Products/Update/FormUpdate';
 
 class App extends Component {
 	render() {
@@ -12,6 +13,8 @@ class App extends Component {
 			<Main>
 				<Switch>
 					<Route exact path="/" component={ProductsContainer}/>,
+					<Route exact path="/update/:id" component={ProductUpdate}/>,
+
 					<Route
 						path="/edit/:productId"
 						render={({match}) => (<UpdateFormContainer productId={parseInt(match.params.productId)}/>)}

@@ -7,9 +7,11 @@ import axios from 'axios';
 import {Card, CardText, CardBody, CardTitle, ListGroup, ListGroupItem, Button} from 'reactstrap';
 import {Link} from "react-router-dom";
 import categs from '../../mocks/categories';
+import ProductUpdate from './Update/FormUpdate'
+import {Route, Switch} from 'react-router-dom'
 
 const ProductList = ({ products, onDelete }) => {
-  const productsGroups = chunk(products, 3)
+  //const productsGroups = chunk(products, 3)
   axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
   const [Listprod, setListprod] = useState([]);
  
@@ -24,7 +26,7 @@ const ProductList = ({ products, onDelete }) => {
       })   
     
     });
-   console.log(Listprod)
+   //console.log(Listprod)
 
   return (
     <Container>
@@ -36,7 +38,7 @@ const ProductList = ({ products, onDelete }) => {
               <Card>
       <CardBody>
         <CardTitle>
-          <Link to={`/edit/${1}`}>{product.name}</Link>
+          <Link to={`/update/${product._id}`}>{product.name}</Link>
           <Button close onClick={() => onDelete(product._id)} />
         </CardTitle>
         <CardText tag="div">

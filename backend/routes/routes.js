@@ -33,7 +33,7 @@ router.get('/getProduct',cors(corsOptions),async (req, res) => {
 })
 
 //Get by ID Method
-router.get('/getOne/:id', async (req, res) => {
+router.get('/product/get/:id', async (req, res) => {
     try{
         const data = await Model.findById(req.params.id);
         res.json(data)
@@ -44,7 +44,7 @@ router.get('/getOne/:id', async (req, res) => {
 })
 
 //Update by ID Method;you can use patch or put 
-router.patch('/update/:id', async (req, res) => {
+router.put('/product/update/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const updatedData = req.body;
@@ -53,8 +53,9 @@ router.patch('/update/:id', async (req, res) => {
         const result = await Model.findByIdAndUpdate(
             id, updatedData, options
         )
+        res.status(200).json(result)
 
-        res.send(result)
+        //res.send(result)
     }
     catch (error) {
         res.status(400).json({ message: error.message })
