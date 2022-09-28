@@ -53,7 +53,7 @@ const ProductForm = (props) => {
             featured:featured
         }
 
-       await axios.post('http://127.0.0.1:5000/api//product/add',options)
+       await axios.post('http://127.0.0.1:5000/api/product/add',options)
         .then(res => {
           console.log(res);
           console.log(res.data);
