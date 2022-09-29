@@ -9,7 +9,6 @@ const receiveCategories = (json) => ({
   type: RECEIVE_CATEGORIES,
   categories: json.map(category => category),
 });
-
 export const fetchCategories = () => (dispatch, getState, {categoryApi}) => {
   dispatch(requestCategories());
   const json = categoryApi.getCategories();

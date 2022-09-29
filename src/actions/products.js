@@ -35,7 +35,7 @@ export const fetchProducts = () => dispatch => {
   dispatch(requestProducts());
   
   const json =productApi.getProducts();
-  console.log(json);
+  //console.log(json);
   dispatch(receiveProducts(json));
 };
 

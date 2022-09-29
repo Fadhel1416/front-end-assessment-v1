@@ -19,9 +19,9 @@ const ProductList = ({ products, onDelete }) => {
       // Met à jour le titre du document via l’API du navigateur
       const tt=  axios.get('http://127.0.0.1:5000/api/getproduct')
       .then(res => {
-        console.log(res);
-        console.log(res.data);
-        console.log(typeof res.data);
+       // console.log(res);
+       // console.log(res.data);
+       // console.log(typeof res.data);
       setListprod(res.data);
       })   
     
@@ -51,7 +51,7 @@ const ProductList = ({ products, onDelete }) => {
               Categories:
               <ul>
                 {product.categories.map(category =>(
-                  <li>{categs[category[0]].name}</li>
+                  <li key={parseInt(category)}>{categs[parseInt(category)].name}</li>
                 ))}
               </ul>
             </ListGroupItem>

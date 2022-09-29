@@ -62,8 +62,8 @@ const FormUpdate = () => {
 
        await axios.put(`http://127.0.0.1:5000/api/product/update/${id}`,options)
         .then(res => {
-          console.log(res);
-          console.log(res.data);
+          //console.log(res);
+          //console.log(res.data);
           setFlashm(true);
           setTimeout(() => {
             history.push("/");
@@ -138,8 +138,8 @@ const FormUpdate = () => {
                     defaultValue={categories}
                     onChange={({target}) => setCategories(getMultiSelected(target))}
                 >
-                {categories.map(index => (
-                        <option key={index} defaultValue={index}>{categs[index].name}</option>
+                {categs.map(({id, name}) => (
+                        <option key={id} value={id}>{name}</option>
                     ))}
                 </Input>
                 <FormFeedback>A product must have from 1 to 5 categories</FormFeedback>
