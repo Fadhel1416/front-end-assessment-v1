@@ -20,6 +20,12 @@ const ProductForm = (props) => {
     const [expirationDate, setExpirationDate] = useState('');
     const [featured, setFeatured] = useState(false);
     const[falshm,setFlashm]=useState(null);
+    const[falshdate,setFlashdate]=useState(null);
+    const[falshfiled,setFlashfield]=useState(null);
+    const[falshoption,setFlashoption]=useState(null);
+
+
+
     const history = useHistory();
 
     const style = {
@@ -27,7 +33,7 @@ const ProductForm = (props) => {
         display: 'none'
       };
      
-      const onSubmit = async(e) => {
+      const onSubmit = (e) => {
         e.preventDefault();
         props.onSave({
             name,
@@ -51,9 +57,19 @@ const ProductForm = (props) => {
             expirationDate:expirationDate,
             receiptDate:receiptDate,
             featured:featured
+        };
+         if(!isNameValid(name) ){
+            setFlashfield(true)
         }
+        else if(!isCategoriesValid(categories)){
+            setFlashoption(true)
+        }
+        else if(!isDateValid(expirationDate)){
+            setFlashdate(true)
 
-       await axios.post('http://127.0.0.1:5000/api/product/add',options)
+        }
+       else{
+        axios.post('http://127.0.0.1:5000/api/product/add',options)
         .then(res => {
           console.log(res);
           console.log(res.data);
@@ -62,7 +78,7 @@ const ProductForm = (props) => {
             history.push("/");
 
         }, 3000);
-        })
+        })}
     }
     const handlechange=(e)=>{
         setRating(e.target.value);
@@ -81,6 +97,20 @@ const ProductForm = (props) => {
               {
             falshm
             ?<FlashMessage duration={5000}><span className='alert alert-success' style={{marginLeft: '200px',width:'500px'}}>Your product has been added</span></FlashMessage>:null
+          }
+             {
+            falshdate
+            ?<FlashMessage duration={5000}><span className='alert alert-danger' style={{marginLeft: '200px',width:'500px'}}>If a product has an expiration date it must expire not less than 30 days since now</span></FlashMessage>:null
+          }
+            {
+            falshfiled
+            ?<FlashMessage duration={5000}><span className='alert alert-danger' style={{marginLeft: '200px',width:'500px'}}>Name is required, the length must not be greater than 200
+            </span></FlashMessage>:null
+          }
+          
+          {
+            falshoption
+            ?<FlashMessage duration={5000}><span className='alert alert-danger' style={{marginLeft: '200px',width:'500px'}}> A product must have from 1 to 5 categories</span></FlashMessage>:null
           }
             <FormGroup>
                 <Label for='name'>Name</Label>

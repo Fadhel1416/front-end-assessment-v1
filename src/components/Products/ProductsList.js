@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Product from './Product';
 import { Container, Row, Col } from 'reactstrap'
@@ -7,8 +7,8 @@ import axios from 'axios';
 import {Card, CardText, CardBody, CardTitle, ListGroup, ListGroupItem, Button} from 'reactstrap';
 import {Link} from "react-router-dom";
 import categs from '../../mocks/categories';
-import ProductUpdate from './Update/FormUpdate'
-import {Route, Switch} from 'react-router-dom'
+import Header from '../Header/Header';
+
 
 const ProductList = ({ products, onDelete }) => {
   //const productsGroups = chunk(products, 3)
@@ -23,12 +23,16 @@ const ProductList = ({ products, onDelete }) => {
        // console.log(res.data);
        // console.log(typeof res.data);
       setListprod(res.data);
+      
       })   
     
     });
    //console.log(Listprod)
 
   return (
+    <Fragment>
+        <Header name="Products"/>
+
     <Container>
     
         <Row key={1} className="mb-5">
@@ -66,12 +70,14 @@ const ProductList = ({ products, onDelete }) => {
 
         </Row>
     </Container>
+    </Fragment>
+
   );
 };
 
-ProductList.propTypes = {
-  products: PropTypes.array.isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
+// ProductList.propTypes = {
+//   products: PropTypes.array.isRequired,
+//   onDelete: PropTypes.func.isRequired,
+// };
 
 export default ProductList;
