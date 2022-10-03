@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {Button, Form, FormFeedback, FormGroup, Input, Label} from 'reactstrap';
 import {getMultiSelected, repeat} from '../../../utils';
 import {isCategoriesValid, isDateValid, isNameValid,isRatingValid} from '../Update/validators';
-import $ from 'jquery';
 import axios from 'axios';
 import FlashMessage from 'react-flash-message'
 import { useHistory } from "react-router-dom";
