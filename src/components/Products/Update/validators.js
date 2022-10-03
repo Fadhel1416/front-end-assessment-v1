@@ -26,5 +26,5 @@ export const isDateValid = (value) => {
 	// console.log(formatDate);
 	// console.log(value);
     //console.log(getDifferenceInDays(date1,date2)>=30);
-	return getDifferenceInDays(date1,date2)>=30;
+	return getDifferenceInDays(date1,date2)>=30 && date2>date1 ;
 }

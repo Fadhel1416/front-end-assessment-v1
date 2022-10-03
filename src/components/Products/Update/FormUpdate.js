@@ -157,9 +157,12 @@ const FormUpdate = () => {
                     id="expirationDate"
                     defaultValue={expirationDate}
                     onChange={({target}) => setExpirationDate(target.value)}
+                    invalid={!isDateValid(expirationDate)}
+
 
                 />
-               
+               <FormFeedback>If a product has an expiration date it must expire not less than 30 days since
+                    now</FormFeedback>
             </FormGroup>
             <FormGroup>
                 <Label for="receiptDate">Receipt date</Label>

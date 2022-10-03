@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Button, Form, FormFeedback, FormGroup, Input, Label} from 'reactstrap';
 import {getMultiSelected, repeat} from '../../../utils';
-import {isCategoriesValid, isNameValid,isRatingValid} from './validators';
+import {isCategoriesValid, isNameValid,isRatingValid,isDateValid} from './validators';
 
 const ProductForm = (props) => {
     const {product = {}} = props;
@@ -100,6 +100,8 @@ const ProductForm = (props) => {
                     id="expirationDate"
                     value={expirationDate}
                     onChange={({target}) => setExpirationDate(target.value)}
+                    invalid={!isDateValid(expirationDate)}
+
                 />
                 <FormFeedback>If a product has an expiration date it must expire not less than 30 days since
                     now</FormFeedback>
