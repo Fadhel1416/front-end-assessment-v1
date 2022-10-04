@@ -19,7 +19,7 @@ const ProductList = ({ products, onDelete }) => {
       let isMounted = true;               // note mutable flag
 
       // Met à jour le titre du document via l’API du navigateur
-      const tt=  axios.get('https://testtechniqye-100.herokuapp.com:5000/api/getproduct')
+      const tt=  axios.get('http://127.0.0.1:5000/api/getproduct')
       .then(res => {
        // console.log(res);
        // console.log(res.data);
