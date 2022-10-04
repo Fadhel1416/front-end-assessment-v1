@@ -3,7 +3,7 @@ var cors = require('cors')
 const Model = require('../model/model');
 const router = express.Router()
 var corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'https://testtechniqye-100.herokuapp.com',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 //Post Method
