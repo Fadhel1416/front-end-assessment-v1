@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
-import {composeWithDevTools} from 'redux-devtools-extension';
+//import {composeWithDevTools} from 'redux-devtools-extension';
 import reducers from './reducers';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,7 +18,9 @@ import promiseMiddleware from "redux-promise";
 const history = createHashHistory();
 const deps = {history, categoryApi};
 
-const store = createStore(reducers, composeWithDevTools(applyMiddleware(promiseMiddleware,thunk.withExtraArgument(deps))));
+//const store = createStore(reducers,applyMiddleware(promiseMiddleware,thunk.withExtraArgument(deps))));
+const store = createStore(reducers,applyMiddleware(promiseMiddleware,thunk.withExtraArgument(deps)));
+
 store.dispatch(fetchCategories());
 store.dispatch(fetchProducts());
 

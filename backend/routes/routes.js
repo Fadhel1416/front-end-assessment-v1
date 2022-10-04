@@ -10,7 +10,7 @@ var corsOptions = {
 router.post('/product/add', async(req, res) => {
    
     const data = new Model(req.body);
-console.log(req.body);
+    console.log(req.body);
     if(data) {
         const dataToSave = await data.save();
         res.status(200).json(dataToSave)
