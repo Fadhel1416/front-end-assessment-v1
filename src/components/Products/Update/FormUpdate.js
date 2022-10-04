@@ -20,16 +20,29 @@ const FormUpdate = () => {
     const [expirationDate, setExpirationDate] = useState('');
     const [featured, setFeatured] = useState(false);
     const[falshm,setFlashm]=useState(null);
+    const[falshdate,setFlashdate]=useState(null);
+    const[falshfiled,setFlashfield]=useState(null);
+    const[falshoption,setFlashoption]=useState(null);
     const history = useHistory();
     axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
     const style = {
         color: 'red',
         display: 'none'
       };
+    //   useEffect(() => {
+    //     let isMounted = true;               // note mutable flag
+    //     someAsyncOperation().then(data => {
+    //       if (isMounted) setState(data);    // add conditional check
+    //     })
+    //     return () => { isMounted = false }; // cleanup toggles value, if unmounted
+    //   }, []); 
       useEffect(() => {
+        let isMounted = true;               // note mutable flag
+
         // Met à jour le titre du document via l’API du navigateur
          axios.get(`http://127.0.0.1:5000/api/product/get/${id}`)
-        .then(res => {        
+        .then(res => {  
+            if(isMounted){    
           setName(res.data.name);
           setBrand(res.data.brand);
           setRating(res.data.rating);
@@ -37,11 +50,11 @@ const FormUpdate = () => {
           setItemsInStock(res.data.itemsInStock);
           setReceiptDate(res.data.receiptDate);
           setExpirationDate(res.data.expirationDate);
-          setFeatured(res.data.featured);
+          setFeatured(res.data.featured);}
           
         })  
-      
-      });
+        return () => { isMounted = false }; 
+      },[]);
       const onSubmit = async(e) => {
         e.preventDefault();
    
@@ -58,6 +71,17 @@ const FormUpdate = () => {
             receiptDate:receiptDate,
             featured:featured
         }
+        if(!isNameValid(name) ){
+            setFlashfield(true)
+        }
+        else if(!isCategoriesValid(categories)){
+            setFlashoption(true)
+        }
+        else if(!isDateValid(expirationDate)){
+            setFlashdate(true)
+
+        }
+        else{
 
        await axios.put(`http://127.0.0.1:5000/api/product/update/${id}`,options)
         .then(res => {
@@ -69,7 +93,7 @@ const FormUpdate = () => {
 
         }, 3000);
         })
-    }
+    }}
     const handlechange=(e)=>{
         setRating(e.target.value);
         if(isRatingValid(e.target.value)){
@@ -79,6 +103,7 @@ const FormUpdate = () => {
             setFeatured(false);
         }
     }
+ 
   
     return (
        
@@ -86,6 +111,20 @@ const FormUpdate = () => {
               {
             falshm
             ?<FlashMessage duration={5000}><span className='alert alert-success' style={{marginLeft: '200px',width:'500px'}}>Your product has been modified</span></FlashMessage>:null
+          }
+           {
+            falshdate
+            ?<FlashMessage duration={5000}><span className='alert alert-danger' style={{marginLeft: '200px',width:'500px'}}>If a product has an expiration date it must expire not less than 30 days since now</span></FlashMessage>:null
+          }
+            {
+            falshfiled
+            ?<FlashMessage duration={5000}><span className='alert alert-danger' style={{marginLeft: '200px',width:'500px'}}>Name is required, the length must not be greater than 200
+            </span></FlashMessage>:null
+          }
+          
+          {
+            falshoption
+            ?<FlashMessage duration={5000}><span className='alert alert-danger' style={{marginLeft: '200px',width:'500px'}}> A product must have from 1 to 5 categories</span></FlashMessage>:null
           }
             <FormGroup>
                 <Label for='name'>Name</Label>
@@ -117,12 +156,14 @@ const FormUpdate = () => {
                     type="select"
                     name="rating"
                     id="rating"
-                    defaultValue={rating}
+                    value={rating}
                     onChange={handlechange}
                 >
                     {repeat(11).map((v) => (
-                        <option key={v} defaultValue={v}>{v}</option>
-                    ))}
+                        
+                         <option key={v}  value={v}>{v}</option>
+                        
+                        ))}
                 </Input>
             </FormGroup>
             <FormGroup>
