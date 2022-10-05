@@ -68,7 +68,7 @@ const ProductForm = (props) => {
 
         }
        else{
-        axios.post('http://127.0.0.1:5000/api/product/add',options)
+        axios.post('https://test-node-app100.herokuapp.com/api/product/add',options)
         .then(res => {
           console.log(res);
           console.log(res.data);

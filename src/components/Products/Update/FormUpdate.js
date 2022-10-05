@@ -40,7 +40,7 @@ const FormUpdate = () => {
         let isMounted = true;               // note mutable flag
 
         // Met à jour le titre du document via l’API du navigateur
-         axios.get(`http://127.0.0.1:5000/api/product/get/${id}`)
+         axios.get(`https://test-node-app100.herokuapp.com/api/product/get/${id}`)
         .then(res => {  
             if(isMounted){    
           setName(res.data.name);
