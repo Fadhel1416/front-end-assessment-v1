@@ -83,7 +83,7 @@ const FormUpdate = () => {
         }
         else{
 
-       await axios.put(`http://127.0.0.1:5000/api/product/update/${id}`,options)
+       await axios.put(`https://test-node-app100.herokuapp.com/api/product/update/${id}`,options)
         .then(res => {
           //console.log(res);
           //console.log(res.data);
